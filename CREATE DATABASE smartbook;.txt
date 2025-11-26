@@ -1,0 +1,90 @@
+CREATE DATABASE smartbook;
+
+
+CREATE TABLE usuarios (
+  IdUsuario VARCHAR(50)  PRIMARY KEY NOT NULL,
+  IdentificacionUsuario VARCHAR(50) NOT NULL,
+  NombresUsuario VARCHAR(100) NOT NULL,
+  ContraseniaUsuario VARCHAR(255) NOT NULL,
+  CorreoUsuario VARCHAR(100) NOT NULL,
+  RolUsuario INT NOT NULL,
+  EstadoUsuario INT NOT NULL,
+  FechaCreacion DATETIME NOT NULL,
+  EmailConfirmado TINYINT(1) DEFAULT NULL,
+  TokenConfirmacion VARCHAR(255) DEFAULT NULL,
+  TokenExpiracion DATETIME DEFAULT NULL
+);
+
+
+
+-- Tabla de ingresos
+CREATE TABLE Ingresos (
+    IdIngreso VARCHAR(36) PRIMARY KEY,
+    FechaIngreso DATETIME NOT NULL,
+    Lote VARCHAR(20) NOT NULL UNIQUE
+);
+
+-- Tabla de detalle de ingresos
+CREATE TABLE DetalleIngresos (
+    IdDetalleIngreso VARCHAR(50) PRIMARY KEY,
+    IdIngreso VARCHAR(36) NOT NULL,
+    IdLibro VARCHAR(36) NOT NULL,
+    Unidades INT NOT NULL,
+    ValorCompra DECIMAL(10,2) NOT NULL CHECK (valorCompra > 0),
+    ValorVentaPublico DECIMAL(10,2) NOT NULL CHECK (valorVentaPublico > 0),
+    FOREIGN KEY (IdIngreso) REFERENCES ingresos(IdIngreso) ON DELETE CASCADE,
+    FOREIGN KEY (idLibro) REFERENCES libros(idLibro) ON DELETE RESTRICT
+);
+
+CREATE TABLE Libros (
+idLibro VARCHAR(50) PRIMARY KEY,
+nombreLibro VARCHAR(200) NOT NULL,
+nivelLibro VARCHAR(100) NOT NULL,
+stockLibro INT NOT NULL,
+tipoLibro INT NOT NULL,
+editorialLibro VARCHAR(150) NOT NULL,
+edicionLibro INT NOT NULL
+);
+
+
+
+-- Tabla: ventas (encabezado)
+CREATE TABLE ventas (
+    Id VARCHAR(36) PRIMARY KEY,
+    NumeroReciboPago VARCHAR(50) NOT NULL,
+    Fecha DATETIME NOT NULL,
+    ClienteIdentificacion VARCHAR(50) NOT NULL,
+    UsuarioId VARCHAR(36) NOT NULL,
+    Observaciones VARCHAR(500) NULL,
+    FechaCreacion DATETIME NOT NULL,
+    FechaActualizacion DATETIME NULL,
+    
+    CONSTRAINT FK_Ventas_Clientes FOREIGN KEY (ClienteIdentificacion) REFERENCES clientes(Identificacion),
+    CONSTRAINT FK_Ventas_Usuarios FOREIGN KEY (UsuarioId) REFERENCES usuarios(IdUsuario)
+);
+
+-- Tabla: detalle_ventas (líneas)
+CREATE TABLE DetalleVentas (
+    Id VARCHAR(36) PRIMARY KEY,
+    VentaId VARCHAR(36) NOT NULL,
+    LibroId VARCHAR(36) NOT NULL,
+    Lote VARCHAR(50) NOT NULL,
+    Cantidad INT NOT NULL,
+    PrecioUnitario DECIMAL(18,2) NOT NULL,
+    FechaCreacion DATETIME NOT NULL,
+    
+    CONSTRAINT FK_DetalleVentas_Ventas FOREIGN KEY (VentaId) REFERENCES ventas(Id) ON DELETE CASCADE,
+    CONSTRAINT FK_DetalleVentas_Libros FOREIGN KEY (LibroId) REFERENCES libros(idLibro),
+    CONSTRAINT CHK_Cantidad CHECK (Cantidad > 0)
+);
+
+CREATE TABLE Clientes (
+    Id VARCHAR(50) PRIMARY KEY,
+    Identificacion VARCHAR(20) NOT NULL UNIQUE,
+    Nombres VARCHAR(200) NOT NULL,
+    Email VARCHAR(150) NOT NULL UNIQUE,
+    Celular VARCHAR(10) NOT NULL UNIQUE,
+    FechaNacimiento DATE NOT NULL,
+    FechaCreacion DATETIME NOT NULL,
+    FechaActualizacion DATETIME NULL
+);
