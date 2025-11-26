@@ -88,3 +88,91 @@ CREATE TABLE Clientes (
     FechaCreacion DATETIME NOT NULL,
     FechaActualizacion DATETIME NULL
 );
+
+
+INSERT INTO usuarios VALUES
+('USR001','1001','Juan Pérez','clave1234','juan@example.com',1,0,NOW(),1,NULL,NULL),
+('USR002','1002','María Gómez','clave1234','maria@example.com',2,0,NOW(),1,NULL,NULL),
+('USR003','1003','Carlos López','clave1234','carlos@example.com',1,0,NOW(),1,NULL,NULL),
+('USR004','1004','Laura Ruiz','clave1234','laura@example.com',2,0,NOW(),1,NULL,NULL),
+('USR005','1005','Ana Torres','clave1234','ana@example.com',1,0,NOW(),1,NULL,NULL),
+('USR006','1006','David Morales','clave1234','david@example.com',2,0,NOW(),1,NULL,NULL),
+('USR007','1007','Sofía Ramos','clave1234','sofia@example.com',1,0,NOW(),1,NULL,NULL),
+('USR008','1008','Felipe Castro','clave1234','felipe@example.com',2,0,NOW(),1,NULL,NULL),
+('USR009','1009','Daniela Ortiz','clave1234','daniela@example.com',1,0,NOW(),1,NULL,NULL),
+('USR010','1010','Miguel Herrera','clave1234','miguel@example.com',2,0,NOW(),1,NULL,NULL);
+
+SELECT * FROM usuarios;
+
+INSERT INTO clientes VALUES
+('CLI001','9001','Pedro Martínez','pedro@example.com','3001112233','1990-03-12',NOW(),NULL),
+('CLI002','9002','Luisa Fernández','luisa@example.com','3002223344','1995-07-20',NOW(),NULL),
+('CLI003','9003','Andrés Vargas','andres@example.com','3003334455','1987-11-05',NOW(),NULL),
+('CLI004','9004','Claudia Romero','claudia@example.com','3004445566','1998-01-18',NOW(),NULL),
+('CLI005','9005','Ricardo Solís','ricardo@example.com','3005556677','1992-09-22',NOW(),NULL),
+('CLI006','9006','Valentina Cruz','valentina@example.com','3006667788','1993-05-30',NOW(),NULL),
+('CLI007','9007','Sebastián Ortiz','sebastian@example.com','3007778899','1989-12-11',NOW(),NULL),
+('CLI008','9008','Mariana Ríos','mariana@example.com','3008889900','1996-06-14',NOW(),NULL),
+('CLI009','9009','Camilo Mendoza','camilo@example.com','3009990011','1994-08-29',NOW(),NULL),
+('CLI010','9010','Santiago León','santiago@example.com','3000001122','1991-02-07',NOW(),NULL);
+
+INSERT INTO libros VALUES
+('LIB001','English A1 Student Book','A1',50,1,'Oxford',3),
+('LIB002','English A1 Workbook','A1',40,2,'Oxford',3),
+('LIB003','English A2 Student Book','A2',45,1,'Cambridge',2),
+('LIB004','English A2 Workbook','A2',35,2,'Cambridge',2),
+('LIB005','English B1 Student Book','B1',60,1,'Pearson',4),
+('LIB006','English B1 Workbook','B1',50,2,'Pearson',4),
+('LIB007','English B2 Student Book','B2',55,1,'McGraw Hill',1),
+('LIB008','English B2 Workbook','B2',48,2,'McGraw Hill',1),
+('LIB009','English C1 Student Book','C1',30,1,'Alfaomega',1),
+('LIB010','English C1 Workbook','C1',25,2,'Alfaomega',1);
+
+INSERT INTO ingresos VALUES
+('ING001',NOW(),'L001'),
+('ING002',NOW(),'L002'),
+('ING003',NOW(),'L003'),
+('ING004',NOW(),'L004'),
+('ING005',NOW(),'L005'),
+('ING006',NOW(),'L006'),
+('ING007',NOW(),'L007'),
+('ING008',NOW(),'L008'),
+('ING009',NOW(),'L009'),
+('ING010',NOW(),'L010');
+
+INSERT INTO DetalleIngresos VALUES
+('DET001','ING001','LIB001',20,20000,35000),
+('DET002','ING002','LIB002',18,18000,32000),
+('DET003','ING003','LIB003',25,25000,40000),
+('DET004','ING004','LIB004',15,22000,37000),
+('DET005','ING005','LIB005',30,30000,45000),
+('DET006','ING006','LIB006',22,21000,36000),
+('DET007','ING007','LIB007',28,28000,42000),
+('DET008','ING008','LIB008',20,24000,38000),
+('DET009','ING009','LIB009',10,35000,55000),
+('DET010','ING010','LIB010',12,30000,50000);
+
+INSERT INTO ventas VALUES
+('VEN001','R001',NOW(),'9001','USR001','Sin observación',NOW(),NULL),
+('VEN002','R002',NOW(),'9002','USR002','Sin observación',NOW(),NULL),
+('VEN003','R003',NOW(),'9003','USR003','Sin observación',NOW(),NULL),
+('VEN004','R004',NOW(),'9004','USR004','Sin observación',NOW(),NULL),
+('VEN005','R005',NOW(),'9005','USR005','Sin observación',NOW(),NULL),
+('VEN006','R006',NOW(),'9006','USR006','Sin observación',NOW(),NULL),
+('VEN007','R007',NOW(),'9007','USR007','Sin observación',NOW(),NULL),
+('VEN008','R008',NOW(),'9008','USR008','Sin observación',NOW(),NULL),
+('VEN009','R009',NOW(),'9009','USR009','Sin observación',NOW(),NULL),
+('VEN010','R010',NOW(),'9010','USR010','Sin observación',NOW(),NULL);
+
+
+INSERT INTO DetalleVentas VALUES
+('DV001','VEN001','LIB001','L001',2,35000,NOW()),
+('DV002','VEN002','LIB002','L002',1,32000,NOW()),
+('DV003','VEN003','LIB003','L003',1,40000,NOW()),
+('DV004','VEN004','LIB004','L004',2,37000,NOW()),
+('DV005','VEN005','LIB005','L005',1,45000,NOW()),
+('DV006','VEN006','LIB006','L006',3,36000,NOW()),
+('DV007','VEN007','LIB007','L007',2,42000,NOW()),
+('DV008','VEN008','LIB008','L008',1,38000,NOW()),
+('DV009','VEN009','LIB009','L009',1,55000,NOW()),
+('DV010','VEN010','LIB010','L010',1,50000,NOW());
